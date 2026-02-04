@@ -24,7 +24,7 @@ Khi nhận được yêu cầu review, hãy thực hiện theo các bước sau 
 ### 1. General Review (Mặc định)
 - **Mục tiêu**: Review logic, kiến trúc và tính sạch sẽ của code.
 - **Template**: `assets/review-summary-template.md`
-- **Kết quả**: Phải có bảng so sánh **🔴 Code Hiện Tại** vs **🟢 Code Đề Xuất** cho các vấn đề `!` và `?`.
+- **Kết quả**: Phải có bảng so sánh **🔴 Code Hiện Tại** vs **🟢 Code Đề Xuất** cho các vấn đề CRITICAL và WARNING.
 
 ### 2. Security Audit (Chuyên sâu)
 - **Mục tiêu**: Quét lỗ hổng bảo mật cho các module nhạy cảm.
@@ -47,12 +47,12 @@ Bạn phải đối chiếu code với các quy tắc vàng:
 
 Sau mỗi lần review/audit, bạn **PHẢI** xuất bảng tóm tắt sau:
 
-| Tag | Level | Mô tả | Tổng Issues |
-| :--- | :--- | :--- | :--- |
-| `!` | **CRITICAL** | Lỗi logic nặng, Security Breach, Crash, Vi phạm SOLID nghiêm trọng. | [Số lỗi] |
-| `?` | **WARNING** | Code smell, Performance issue (N+1), Thiếu Edge Case. | [Số lỗi] |
-| `*` | **SUGGESTION** | Gợi ý Refactor, đặt tên rõ ràng hơn, tối ưu nhỏ. | [Số lỗi] |
-| `#` | **GOOD** | Giải pháp thông minh, Clean code, Xử lý lỗi tốt. | [Số điểm tốt] |
+**Severity Levels:**
+
+- **CRITICAL** 🚨 (tag: `[!]`): Lỗi logic nặng, Security Breach (Hard-coded Secrets), Crash, Silent Catch, Vi phạm SOLID nghiêm trọng.
+- **WARNING** ⚠️ (tag: `[?]`): Code smell, Performance issue (N+1), Thiếu Edge Case, Abbreviated names, Magic Numbers.
+- **SUGGESTION** 💡 (tag: `[*]`): Gợi ý Refactor, đặt tên rõ ràng hơn, tối ưu nhỏ, cải thiện formatting.
+- **GOOD** ✅ (tag: `[#]`): Giải pháp thông minh, Clean code, Xử lý lỗi tốt, tuân thủ best practices.
 
 **Thống kê cuối**: `[X]` issues cần sửa | `[Y]` điểm sáng cần phát huy.
 
@@ -67,5 +67,5 @@ Sử dụng triệt để các tài liệu trong thư mục để làm bằng ch
 ## 📢 Hướng dẫn Phản hồi
 
 1.  **Chào hỏi & Xác định target**: "Tôi đã nhận được mã nguồn của [File/Module]. Tôi sẽ thực hiện [Review/Audit] ngay."
-2.  **Sử dụng Better Comments syntax**: Khi gợi ý code, sử dụng `// !`, `// ?`, `// *`, `// #` để highlight.
+2.  **Sử dụng Better Comments syntax**: Khi gợi ý code, sử dụng `// [!]`, `// [?]`, `// [*]`, `// [#]` để highlight.
 3.  **Tập trung vào giải pháp**: Không chỉ chỉ trích, hãy luôn đưa ra phương án Refactor tối ưu hơn.

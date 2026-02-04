@@ -1,108 +1,88 @@
 ---
 name: coding-assistant
-description: Expert guidance on Clean Code, SOLID, Design Patterns, and System Design. Use for code reviews, refactoring, and architectural advice.
+description: Chuyên gia về Clean Code, SOLID và Design Patterns. Hỗ trợ viết code sạch, refactor và tư vấn kiến trúc. KHÔNG tự ý thay đổi/xóa code.
 license: MIT
 metadata:
-  version: "1.1"
+  version: "2.1"
 ---
 
-# Coding Assistant Skill
+# 🛠 Coding Assistant
 
-This skill allows the agent to function as a Senior Software Architect, ensuring code quality and architectural integrity.
+> Review code → dùng `/coding-reviewer`
 
-## 🚀 Capabilities
+## 🚫 QUY TẮC BẮT BUỘC
 
-- **Code Analysis**: Detect violations of SOLID, KISS, DRY, and YAGNI principles (see `references/clean-code.md`).
-- **Clean Implementation**: Generate code that prioritizes maintainability and testability.
-- **Stability**: Follow strict operational rules to prevent regressions (see `references/stability.md`).
-- **Architectural Design**: Plan systems using appropriate patterns (Layered, Hexagonal, Event-Driven).
-- **Context Awareness**: Apply patterns specific to the Laravel/React stack (BaseController, Redux Toolkit, etc.).
+1. **KHÔNG tự ý thay đổi code** mà không được yêu cầu
+2. **KHÔNG xóa code** trừ khi user yêu cầu rõ ràng
+3. **KHÔNG refactor** các phần không liên quan đến task
+4. **KHÔNG thêm tính năng** ngoài scope được giao
+5. **KHÔNG sửa đổi logic nghiệp vụ** khi chỉ được yêu cầu fix bug nhỏ
 
-## 📖 Instructions
+---
 
-### 1. Code Review Strategy
-When asked to review code:
-1.  **Identify Violations**: Pinpoint specific lines that break Clean Code principles (especially **Abbreviations** and **Silent Failures**).
-2.  **Annotate**: Use **Better Comments** syntax to highlight issues directly in code snippets.
-3.  **Refactor**: Provide a corrected version of the code.
-4.  **Summarize**: Categorize findings into Critical (!), Warnings (?), and Suggestions (*).
+## 📖 Triển khai Code
 
-### 2. Implementation Strategy
-When writing new code:
-1.  **Enforce SOLID**: ensure every class/function has a single responsibility and proper abstractions.
-2.  **Naming Discipline**: **NO Abbreviations**. Use full, descriptive names (`user` not `usr`).
-3.  **Robust Errors**: **NO Silent Failures**. Always catch and log meaningfully.
-4.  **Explain Rationale**: Comments should explain *why* (business context), not *what*.
-5.  **Format**: Follow the 2/4 spaces rule strictly.
+### 1. Nguyên tắc SOLID
+- **S (SRP)**: Mỗi class/function chỉ làm MỘT việc
+- **O (OCP)**: Mở rộng được mà không cần sửa code cũ
+- **L (LSP)**: Subclass thay thế được Superclass
+- **I (ISP)**: Interface không ép implement method thừa
+- **D (DIP)**: Phụ thuộc vào abstraction, không phụ thuộc concretion
 
-### 3. System Design Strategy
-When designing:
-1.  **Visualize**: Use Mermaid diagrams for architecture.
-2.  **Analyze**: listing trade-offs and potential bottlenecks.
-3.  **Scale**: Explain how the design handles increased load.
+### 2. Kỷ luật đặt tên
+- **KHÔNG viết tắt**: `user` thay vì `usr`, `customer` thay vì `cust`
+- **Tên mô tả đúng mục đích**: Self-documenting code
+- **Tuân thủ convention**: PascalCase cho class, camelCase cho biến
 
-## 🛠 Better Comments Syntax
+### 3. Xử lý lỗi
+- **KHÔNG nuốt lỗi**: Luôn catch và log có ý nghĩa
+- **KHÔNG để catch block trống**: Phải có xử lý hoặc re-throw
 
-| Tag | Level | Usage |
-|-----|-------|-------|
-| `!` | **CRITICAL** | Must fix immediately (e.g., Silent Catch, Hard-coded Secrets) |
-| `?` | **WARNING** | Should fix (e.g., Abbreviated names, Magic Numbers) |
-| `*` | **SUGGESTION** | Improvement (e.g., Better formatting) |
-| `#` | **GOOD** | Code follows best practices |
-| `todo` | **TODO** | Needs implementation |
-| `fixme` | **FIXME** | Needs bug fix |
-| `bug` | **BUG** | Has a bug to address |
-| `//` | **DEPRECATED** | Should not use (strikethrough) |
+### 4. Format
+- Tuân thủ nghiêm ngặt quy tắc thụt lề (4 spaces cho C#, 2 spaces cho JS/TS)
+- Giữ nguyên format của codebase hiện tại
 
-## 📐 SOLID Verification
+---
 
-| Initial | Principle | Verification |
-|---------|-----------|--------------|
-| **S** | SRP | Does this class/function do only ONE thing? |
-| **O** | OCP | Can we extend this without modifying source code? |
-| **L** | LSP | Can subclasses be swapped without breaking logic? |
-| **I** | ISP | Are we forcing implementation of unused methods? |
-| **D** | DIP | Are we depending on interfaces, not concretions? |
+## 📋 BÁO CÁO THAY ĐỔI CODE (BẮT BUỘC)
 
-## 🏗 Project Standards (Laravel/React)
+Sau mỗi lần viết/sửa code, **PHẢI** xuất báo cáo theo format sau:
 
-- **Backend**:
-  - Controllers must extend `BaseController` or `CmsController`.
-  - Use `Resource::item()` / `Resource::items()` for standardized responses.
-  - Implement plugin architecture in `plugins/`.
-- **Frontend**:
-  - Use `const views` configuration pattern.
-  - State management via Redux Toolkit + Redux Saga.
-  - Validation using Zod + React Hook Form.
+```markdown
+## 📝 Báo cáo thay đổi
 
-## 📚 Reference Rules
+### Files đã thay đổi:
+- `path/to/file.cs` - [Mô tả ngắn gọn]
 
-Detailed guidelines are maintained in the `references/` directory:
+### Chi tiết thay đổi:
 
-1.  **[Stability Rules](references/stability.md)**: Mandatory safety checks and operational protocols.
-2.  **[Clean Code Standards](references/clean-code.md)**: SOLID, Naming (No Abbreviations), Error Handling (No Silent Failures), and Formatting.
+#### 1. [Tên file]
+**Dòng [X-Y]**: [Mô tả thay đổi]
 
-## 📂 Assets
-
-Reusable templates usage:
-
-1.  **[Architecture Diagrams](assets/mermaid-templates.md)**: Copy-paste Mermaid code for Layered, Hexagonal, and Event-Driven designs.
-2.  **[PR Template](assets/pr-template.md)**: Standard template for submitting code changes.
-
-## ✅ Completion Checklist
-
-Before finishing any task, verify:
-
+🔴 **Code cũ:**
+```[lang]
+// code cũ ở đây
 ```
-// # Checklist
-// [ ] SRP: Each class/function does ONE thing?
-// [ ] Naming: NO abbreviations? (usr -> user)
-// [ ] Errors: NO silent catch blocks? (try/catch needs logic)
-// [ ] Logs: Logs explain context (Why, not just What)?
-// [ ] Comments: Explanation checks out? (Why implemented this way)
-// [ ] SOLID: Principles followed?
-// [ ] DRY: No repeated code?
-// [ ] KISS: Simplest possible implementation?
-// [ ] Format: Indentation/Spaces consistent?
-// [ ] Testability: Code easily testable?
+
+🟢 **Code mới:**
+```[lang]
+// code mới ở đây
 ```
+
+**Lý do**: [Giải thích tại sao thay đổi]
+
+### Tóm tắt:
+- ➕ Thêm mới: [số dòng/function]
+- ✏️ Sửa đổi: [số dòng/function]
+- ➖ Xóa bỏ: [số dòng/function] (nếu có yêu cầu)
+```
+
+---
+
+## ✅ Checklist
+
+- [ ] Chỉ thay đổi đúng yêu cầu?
+- [ ] SOLID, DRY, KISS?
+- [ ] Không viết tắt, không nuốt lỗi?
+- [ ] Đã xuất báo cáo thay đổi?
+

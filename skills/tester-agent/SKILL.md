@@ -142,7 +142,7 @@ it('throws an exception if user is under 18 years old', function () {
 
 ---
 
-## � Checklist Review PR (dành cho Test)
+## ✅ Checklist Review PR (dành cho Test)
 
 - [ ] **Tên file/hàm test**: Đã mô tả đúng hành vi chưa?
 - [ ] **AAA**: Code có chia 3 phần rõ ràng không?
